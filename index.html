@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <script defer src="js/app.js"></script>
+    <script src="js/app.js" defer></script>
     <title>Guess the Word!</title>
 </head>
 <body>
@@ -13,9 +13,12 @@
 
     <form>
         <input id="textbox" type="text">
-        <input type="submit">
+        <input type="submit" id='submit'>
+        <input class='hidden' type='reset' id='reset'>
     </form>
 
     <div id="messages"></div>
+    <div class='hidden' id='guesses'></div>
+    <div class='lives'>Lives: 6</div>
 </body>
 </html>
