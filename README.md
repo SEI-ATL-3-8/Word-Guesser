@@ -47,8 +47,10 @@ Being able to render a word as some underscores and some letters will be a littl
 ## Match
 ![screenshot match](assets/match.png)
 ## BONUS
+Keep track of all the letters entered 
 
-Sometimes a user might have solved the answer without guessing every single letter. As a bonus implement a way for the user to guess the whole phrase instead of just one letter. Preferably, this should be case insensitive!
+Sometimes a user might have solved the answer without guessing every single letter. As a bonus implement a way for the user to guess the whole phrase instead of just one letter. Preferably, this should be case insensitive! 
+
 
 
 ![screenshot finished](assets/finish.png)
