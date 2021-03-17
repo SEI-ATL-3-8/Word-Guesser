@@ -1,0 +1,19 @@
+body {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#guess-word-container {
+    display: flex;
+    justify-content: center;
+}
+
+.letter {
+    font-size: 30px;
+    display: inline-block;
+    margin: 10px;
+}
+
+form {
+    margin-top: 50px;
+}
