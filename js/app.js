@@ -1,8 +1,8 @@
 /* Constants */
-const WORD_LIST = ['producer', 'brainstorm', 'explosion', 'soup', 'feather']
+const WORD_LIST = ['chimichuri', 'beer' , 'sleep', 'deprived', 'atlanta', 'georgia']
 
 /* Variables and App State */
-let word = "";
+let word = "".toLowerCase();
 
 /* DOM References */
 let wordContainer = document.querySelector('#guess-word-container');
@@ -26,25 +26,66 @@ const displayWordStatus = () => {
     while(wordContainer.firstChild) {
         wordContainer.removeChild(wordContainer.firstChild);
     }
-    for(let i = 0; i < word.length; i++) {
+    for(let i = 0; i < word.length; i++) { 
         let letter = document.createElement('div');
-        letter.textContent = '_'
+        letter.textContent = '-'
         letter.classList.add("letter");
+        letter.id = "id"+i
         wordContainer.appendChild(letter);
-    }
-}
-
-// On submit event: Guess a letter or guess the whole word
+    }        
+}    
 const guessLetter = event => {
     event.preventDefault();
-    console.log(`You submitted: ${textBox.value}`);
+    displayMessage(messages)        
 }
 
 // Display a message to the user in the messagebox
 const displayMessage = msg => { 
-    /* Your code here! */
+    let guess = textBox.value.toLowerCase()
+    let wordLength = word.length
+    
+    if(word === guess){
+        winAll(word, msg)
+    }
+    else if(word.includes(guess)){
+        winOneLetter(guess, word, msg)
+    }
+    else{
+        msg.innerHTML = (`${textBox.value.toLowerCase()} is not a match!`)
+    }
+    checkForWin(wordLength)
+}
+const winAll = (all, m) =>{
+    for(let j = 0; j < word.length; j++){
+        let win = all[j]
+         document.querySelector(`#id${j}`).innerHTML = win
+         m.innerHTML = (`${word} is the correct word!!`)
+    }
+}
+const winOneLetter = (x, y, m) =>{
+    // for(let n = 0; n < word.length; n++){
+    let yes = y.indexOf(x)
+    while(yes > -1){
+        document.querySelector(`#id${yes}`).innerHTML = x
+        yes = y.indexOf(x, yes+1)
+  }
+    
+   
+    // const indexOfWord = y.indexOf(x) 
+    // document.querySelector(`#id${yes}`).innerHTML = x
+    // m.innerHTML = (`${x} is a match!`)
 }
 
-/* Event Listeners */
+const checkForWin = (x) => {  
+    for(let l = 0; l < word.length; l++){   
+         if (document.querySelector(`#id${l}`).textContent !== '-'){
+            x--
+          if(x === 0){
+                alert('YOU WIN')
+            }
+        }
+    }
+}
+/* Event Liste  ners */
 document.addEventListener('DOMContentLoaded', initialize);
-document.addEventListener('submit', guessLetter);
+document.addEventListener('submit', guessLetter);       
