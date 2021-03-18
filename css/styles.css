@@ -17,3 +17,7 @@ body {
 form {
     margin-top: 50px;
 }
+
+#messages {
+    border: 1px solid black;
+}
