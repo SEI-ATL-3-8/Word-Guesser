@@ -42,7 +42,11 @@ const guessLetter = event => {
 
 // Display a message to the user in the messagebox
 const displayMessage = msg => { 
-    /* Your code here! */
+    let text = document.createElement('P');
+    addText = document.createTextNode(msg)
+    text.appendChild(addText);
+    messages.appendChild(text);
+
 }
 
 /* Event Listeners */
