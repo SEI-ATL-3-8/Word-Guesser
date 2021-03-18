@@ -3,6 +3,11 @@ const WORD_LIST = ['producer', 'brainstorm', 'explosion', 'soup', 'feather']
 
 /* Variables and App State */
 let word = "";
+let guess = null;
+let dashArray = []
+let wordArray = []
+let letterSpot= []
+
 
 /* DOM References */
 let wordContainer = document.querySelector('#guess-word-container');
@@ -18,6 +23,7 @@ const initialize = event => {
     word = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     console.log('The word is:', word);
     displayWordStatus();
+    
 }
 
 // Helper function that adds multiple <div>_</div> to DOM
@@ -32,19 +38,78 @@ const displayWordStatus = () => {
         letter.classList.add("letter");
         wordContainer.appendChild(letter);
     }
+    storeArrays()
 }
 
+
+
+
 // On submit event: Guess a letter or guess the whole word
+let correctGuesses = 0;
 const guessLetter = event => {
     event.preventDefault();
-    console.log(`You submitted: ${textBox.value}`);
+    clearArray()
+    guess = textBox.value
+    let idx = wordArray.indexOf(guess);
+        while(idx != -1){
+        letterSpot.push(idx);
+        idx = wordArray.indexOf(guess, idx + 1);
+    }
+     if(letterSpot.length >= 2){
+        correctGuesses = correctGuesses + letterSpot.length
+        for(i=0;i<letterSpot.length;i++){
+            let letty = letterSpot[i];
+            dashArray[letty].textContent = guess
+        }
+    } else{
+        correctGuesses = correctGuesses + 1
+        dashArray[letterSpot].textContent = guess
+    }
+    displayMessage()
+    textBox.value= ''
 }
 
 // Display a message to the user in the messagebox
-const displayMessage = msg => { 
-    /* Your code here! */
+const displayMessage = msg => {
+    while(messages.firstChild) {
+        messages.removeChild(messages.firstChild)
+    }
+    let msg1 = document.createElement('p');
+    if(!guess){
+        return
+    }
+    else if(correctGuesses === dashArray.length){
+        msg1.textContent = "you did ! you can finally go to bed!"
+    }
+    else if(word.includes(guess)===true){
+        msg1.textContent = `${guess} is a letter!`
+    }
+    else{
+        msg1.textContent = `${guess} is not a letter!`
+    }
+    msg1.classList.add('msg1');
+    messages.append(msg1)
+    
 }
+
+
+
+const storeArrays = () =>{
+    let dashLocation = document.querySelectorAll('.letter')
+    dashLocation.forEach(function(dash){
+    dashArray.push(dash)
+    })
+    let letterLocation = word.split("");
+    letterLocation.forEach(function(letter){
+    wordArray.push(letter);
+    })
+}
+const clearArray = () =>{
+    letterSpot.length = 0;
+}
+
 
 /* Event Listeners */
 document.addEventListener('DOMContentLoaded', initialize);
 document.addEventListener('submit', guessLetter);
+
