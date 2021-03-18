@@ -1,6 +1,7 @@
 /* Constants */
 const WORD_LIST = ['producer', 'brainstorm', 'explosion', 'soup', 'feather']
 
+
 /* Variables and App State */
 let word = "";
 
@@ -11,7 +12,7 @@ let messages = document.querySelector('#messages');
 
 /* Functions and app logic */
 
-// Initialize the game: 
+// Initialize the game:
 // 1. Reset state variables
 // 2. Display the word blanks in the DOM
 const initialize = event => {
@@ -22,17 +23,21 @@ const initialize = event => {
 
 // Helper function that adds multiple <div>_</div> to DOM
 const displayWordStatus = () => {
-    // Clear(empty) all of the divs children 
+    // Clear(empty) all of the divs children
     while(wordContainer.firstChild) {
         wordContainer.removeChild(wordContainer.firstChild);
     }
     for(let i = 0; i < word.length; i++) {
         let letter = document.createElement('div');
         letter.textContent = '_'
+        letter.id = "box" + i
         letter.classList.add("letter");
         wordContainer.appendChild(letter);
     }
+
+
 }
+
 
 // On submit event: Guess a letter or guess the whole word
 const guessLetter = event => {
@@ -41,10 +46,40 @@ const guessLetter = event => {
 }
 
 // Display a message to the user in the messagebox
-const displayMessage = msg => { 
-    /* Your code here! */
+let correctGuess = 0
+const displayMessage = msg => {
+        msg.preventDefault();
+        while(messages.firstChild) {
+            messages.removeChild(messages.firstChild);
+        }
+
+        if (word.includes(textBox.value)) {
+
+            if (word.length === correctGuess) {
+                messages.append(' You win!');
+            }else if (word.lenth != correctGuess) {
+                const wordIndex = word.indexOf(textBox.value)
+            // console.log(wordIndex)
+                document.querySelector('#box' + wordIndex).innerText = textBox.value
+                correctGuess++
+                messages.append (` the word includes ${textBox.value}`)
+
+            }
+
+
+
+        } else {
+            messages.append(`Sorry ${textBox.value} is the wrong answer`);
+        }
+
+
 }
+/* Your code here! */
+
+
+
 
 /* Event Listeners */
 document.addEventListener('DOMContentLoaded', initialize);
-document.addEventListener('submit', guessLetter);
+document.addEventListener('submit', guessLetter, );
+document.addEventListener('submit', displayMessage);
