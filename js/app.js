@@ -1,6 +1,7 @@
 /* Constants */
 const WORD_LIST = ['producer', 'brainstorm', 'explosion', 'soup', 'feather']
 
+
 /* Variables and App State */
 let word = "";
 
@@ -18,17 +19,19 @@ const initialize = event => {
     word = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     console.log('The word is:', word);
     displayWordStatus();
+
 }
 
 // Helper function that adds multiple <div>_</div> to DOM
 const displayWordStatus = () => {
     // Clear(empty) all of the divs children 
-    while(wordContainer.firstChild) {
+    while (wordContainer.firstChild) {
         wordContainer.removeChild(wordContainer.firstChild);
     }
-    for(let i = 0; i < word.length; i++) {
+    for (let i = 0; i < word.length; i++) {
         let letter = document.createElement('div');
         letter.textContent = '_'
+        letter.id = "box" + i
         letter.classList.add("letter");
         wordContainer.appendChild(letter);
     }
@@ -41,10 +44,28 @@ const guessLetter = event => {
 }
 
 // Display a message to the user in the messagebox
-const displayMessage = msg => { 
+const displayMessage = msg => {
+    msg.preventDefault();
+    while (messages.firstChild) {
+        messages.removeChild(messages.firstChild);
+    }
+    if (word.includes(textBox.value)) {
+        messages.append(`the word includes ${textBox.value}`)
+        const wordIndex = word.indexOf(textBox.value)
+        console.log(wordIndex)
+        document.querySelector('#box' + wordIndex).innerText = textBox.value
+    } else {
+        messages.append(`Sorry ${textBox.value} is the wrong answer`);
+    }
+
+
+
+
     /* Your code here! */
 }
+
 
 /* Event Listeners */
 document.addEventListener('DOMContentLoaded', initialize);
 document.addEventListener('submit', guessLetter);
+document.addEventListener('submit', displayMessage);
