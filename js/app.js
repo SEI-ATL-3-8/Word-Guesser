@@ -41,9 +41,47 @@ const guessLetter = event => {
 }
 
 // Display a message to the user in the messagebox
-const displayMessage = msg => { 
-    /* Your code here! */
+let initLength = 0
+let leftovers = word.length
+let answerArray = []
+
+if (word.length === initLength) {
+    messages.innerText = "Please enter a letter!"
+} else {
+    messages.innerText = "No"
 }
+
+for (let i = 0; i < word.length; i++) {
+    answerArray[i] = "_"
+}
+
+while (leftovers > 0) {
+    alert(answerArray.join(" "))
+
+    let playerGuess = prompt("Guess a letter...")
+    if (playerGuess.length !== 1) {
+        alert("only 1 letter please")
+    } else {
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] === playerGuess) {
+                answerArray[i] = playerGuess
+                leftovers--
+                messages.innerText(`'${textBox}' is included!`)
+                console.log(answerArray)
+            } else {
+                messages.innerText(`'${textBox}' is an incorrect letter.`)
+                console.log(answerArray)
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
 
 /* Event Listeners */
 document.addEventListener('DOMContentLoaded', initialize);
