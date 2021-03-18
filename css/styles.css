@@ -1,6 +1,51 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     margin: 0 auto;
+    width: 100vw;
+    background-color: #883000;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.container {
+    background-color: #d7722c;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    border-radius: 10px;
+    border: 2px solid #fef9f3;
+    box-shadow: 10px 10px 10px 10px;
+    font-family: 'Ewert', sans-serif;
+    color: #2c2106;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+#textbox {
+    width: 150px;
+    height: 25px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
 }
 
 #guess-word-container {
@@ -9,7 +54,7 @@ body {
 }
 
 .letter {
-    font-size: 30px;
+    font-size: 25px;
     display: inline-block;
     margin: 10px;
 }
