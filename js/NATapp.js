@@ -29,6 +29,7 @@ const displayWordStatus = () => {
     for(let i = 0; i < word.length; i++) {
         let letter = document.createElement('div');
         letter.textContent = '_'
+        letter.id = "box" + i
         letter.classList.add("letter");
         wordContainer.appendChild(letter);
     }
@@ -40,6 +41,9 @@ const guessLetter = event => {
     console.log(`You submitted: ${textBox.value}`);
 }
 
+
+let correctGuesses = 0
+
 // Display a message to the user in the messagebox
 const displayMessage = msg => {
     msg.preventDefault();
@@ -47,17 +51,34 @@ const displayMessage = msg => {
         messages.removeChild(messages.firstChild);
     }
     if (word.includes(textBox.value)) {
-        messages.append(`the word includes ${textBox.value}`)
-        // letter.textContent = textBox.value
-        const wordIndex = word.indexOf(textBox.value)
+        if (word.length === correctGuesses) {
+            messages.append("Nice!!!!");
+            else if (word.length) != correctGuesses {
+                const wordIndex = word.indexOf(textBox.value)
+                console.log(wordIndex)
+                document.querySelector('#box' + wordIndex).innerText = textBox.value
+                correctGuesses++
+                messages.append(`the word includes ${textBox.value}`)
+
+            }
+
+        } else{
+            messages.append("NOPE!!");
+        }
+
+        // letterSpace = document.querySelector('.guess-word')
+        // letter.id = textBox.value
         // wordContainer.value[wordIndex] = textBox.value
 
-        letter = document.createElement('div');
-        letter.textContent.remove = '_'
-        letter = document.getElementById('textbox');
-        letter.textContent = wordContainer.value
-        letter.classList.add("letter");
-        wordContainer.appendChild(letter);
+        ///////
+        // letter = document.createElement('div');
+        // letter.textContent.remove = '_'
+        // letter = document.getElementsByClassName('letter');
+        // letter.textContent.append = letter.value
+        // letter.classList.add("letter").innerText;
+        // letter.textContent=document.querySelector('#letter-').word[i].innerText
+        // wordContainer.appendChild(letter);
+        ////////
     } else {
         messages.append(`the word does not includes ${textBox.value}`)
     }
