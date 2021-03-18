@@ -3,6 +3,7 @@ const WORD_LIST = ['producer', 'brainstorm', 'explosion', 'soup', 'feather']
 
 /* Variables and App State */
 let word = "";
+let correctGuess = 0
 
 /* DOM References */
 let wordContainer = document.querySelector('#guess-word-container');
@@ -29,6 +30,7 @@ const displayWordStatus = () => {
     for(let i = 0; i < word.length; i++) {
         let letter = document.createElement('div');
         letter.textContent = '_'
+        letter.id = 'box' + i
         letter.classList.add("letter");
         wordContainer.appendChild(letter);
     }
@@ -36,15 +38,36 @@ const displayWordStatus = () => {
 
 // On submit event: Guess a letter or guess the whole word
 const guessLetter = event => {
+    document.getElementById('button').value
     event.preventDefault();
     console.log(`You submitted: ${textBox.value}`);
 }
 
 // Display a message to the user in the messagebox
+
 const displayMessage = msg => { 
-    /* Your code here! */
+    msg.preventDefault();
+    while(messages.firstChild) {
+        messages.removeChild(messages.firstChild);
+    }
+
+    if (word.includes(textBox.value)){
+        
+        if(word.length === correctGuess) {
+            messages.append('You Win!!')
+        } else if (word.length != correctGuess) {
+            const wordIndex = word.indexOf(textBox.value)
+            document.querySelector('#box' + wordIndex).innerText = textBox.value
+            correctGuess++
+            messages.append(`The word includes ${textBox.value}`) 
+        }
+
+    } else {
+        messages.append(`The doesn't include ${textBox.value}`)
+    }
 }
 
 /* Event Listeners */
 document.addEventListener('DOMContentLoaded', initialize);
 document.addEventListener('submit', guessLetter);
+document.addEventListener('submit', displayMessage);
