@@ -13,7 +13,7 @@ let messages = document.querySelector('#messages');
 
 // Initialize the game: 
 // 1. Reset state variables
-// 2. Display the word blanks in the DOM
+// 2. Display the word word.length in the DOM
 const initialize = event => {
     word = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     console.log('The word is:', word);
@@ -38,10 +38,45 @@ const displayWordStatus = () => {
 const guessLetter = event => {
     event.preventDefault();
     console.log(`You submitted: ${textBox.value}`);
+    let correct = false;
+
+    if(textBox.value == word)
+    {
+        // console.log("YAY")
+        textBox.value = ""
+        correct = true
+        displayMessage("You guessed right!")
+    }
+
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] == textBox.value) {
+            correct = true;
+            displayMessage("It's a match")
+        }
+    }
+
+    if (correct) {
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] == letter) {
+                letter.textContent[i] = letter;
+            }
+        }
+    }
+    else {
+        displayMessage("No match")
+    }
 }
+
+   
+  
+
+
 
 // Display a message to the user in the messagebox
 const displayMessage = msg => { 
+   
+messages.textContent = msg
+    
     /* Your code here! */
 }
 
