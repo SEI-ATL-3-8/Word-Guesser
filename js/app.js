@@ -43,7 +43,7 @@ const guessLetter = event => {
 const displayMessage = msg => { 
     let guess = textBox.value.toLowerCase()
     let wordLength = word.length
-    
+
     if(word === guess){
         winAll(word, msg)
     }
@@ -69,11 +69,7 @@ const winOneLetter = (x, y, m) =>{
         document.querySelector(`#id${yes}`).innerHTML = x
         yes = y.indexOf(x, yes+1)
   }
-    
-   
-    // const indexOfWord = y.indexOf(x) 
-    // document.querySelector(`#id${yes}`).innerHTML = x
-    // m.innerHTML = (`${x} is a match!`)
+    m.innerHTML = (`${x} is a match!`)
 }
 
 const checkForWin = (x) => {  
