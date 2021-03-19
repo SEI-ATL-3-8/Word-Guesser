@@ -4,6 +4,7 @@ const WORD_LIST = ['producer', 'brainstorm', 'explosion', 'soup', 'feather']
 /* Variables and App State */
 let word = "";
 
+
 /* DOM References */
 let wordContainer = document.querySelector('#guess-word-container');
 let textBox = document.querySelector('#textbox');
@@ -28,7 +29,7 @@ const displayWordStatus = () => {
     }
     for(let i = 0; i < word.length; i++) {
         let letter = document.createElement('div');
-        letter.textContent = '_'
+        letter.textContent = wordStatus[1]
         letter.classList.add("letter");
         wordContainer.appendChild(letter);
     }
@@ -41,8 +42,21 @@ const guessLetter = event => {
 }
 
 // Display a message to the user in the messagebox
+// your code here
 const displayMessage = msg => { 
-    /* Your code here! */
+    const displayMessage = msg => {
+        msg.preventDefault();
+        while (messages.firstChild) {
+            messages.removeChild(messages.firstChild);
+        }
+        if (word.includes(textBox.value)) {
+            messages.append(`the word includes ${textBox.value}`)
+            const wordIndex = word.indexOf(textBox.value)
+            console.log(wordIndex)
+            document.querySelector('#box' + wordIndex).innerText = textBox.value
+        } else {
+            messages.append(`Sorry ${textBox.value} is the wrong answer`);
+        }
 }
 
 /* Event Listeners */
